@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <%- include('../fragmente/head', { titlu: 'Despre noi - Cowsmin Tech' }) %>
+    <meta name="description" content="Află mai multe despre Cowsmin Tech - istoria noastră, misiunea și valorile companiei.">
+    <meta name="keywords" content="despre, companie, istorie, misiune, Cowsmin Tech">
+</head>
+<body>
+    <%- include('../fragmente/header') %>
+    
+    <main>
+        <section id="despre-intro">
+            <h1>Despre Cowsmin Tech</h1>
+            <p>Bun venit în lumea tehnologiei moderne și a inovației!</p>
+        </section>
+        
+        <section id="istorie">
+            <h2>Istoria noastră</h2>
+            <p>Cowsmin Tech a fost înființată în 2024 cu scopul de a aduce tehnologia de vârf mai aproape de utilizatori. 
+               Începând ca un proiect de pasiune, am crescut până să devenim o platformă de încredere pentru soluții tehnologice.</p>
+            
+            <p>De la primele noastre zile, ne-am concentrat pe calitate, inovație și satisfacția clienților. 
+               Echipa noastră de specialiști lucrează neobosit pentru a vă oferi cele mai bune produse și servicii.</p>
+        </section>
+        
+        <section id="misiune">
+            <h2>Misiunea noastră</h2>
+            <p>Să democratizăm accesul la tehnologie și să oferim soluții inovatoare care să îmbunătățească viața de zi cu zi.</p>
+            
+            <h3>Valorile noastre:</h3>
+            <ul>
+                <li><strong>Inovație</strong> - Căutăm mereu soluții noi și creative</li>
+                <li><strong>Calitate</strong> - Nu acceptăm compromisuri când vine vorba de excelență</li>
+                <li><strong>Transparență</strong> - Comunicăm deschis și onest cu clienții noștri</li>
+                <li><strong>Sustenabilitate</strong> - Gândim la impactul pe termen lung</li>
+            </ul>
+        </section>
+        
+        <section id="echipa">
+            <h2>Echipa noastră</h2>
+            <p>Suntem o echipă de pasionați, formată din dezvoltatori, designeri și specialiști în tehnologie, 
+               uniți de dorința comună de a crea experiențe digitale excepționale.</p>
+        </section>
+    </main>
+    
+    <%- include('../fragmente/footer') %>
+    
+    <!-- Add global theme script -->
+    <script src="/src/js/theme-global.js"></script>
+    
+    <!-- Script pentru meniul burger -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.querySelector('#variante-meniu .menu-toggle');
+        const menuSecundar = document.querySelector('#variante-meniu .menu-secundar');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                menuSecundar.classList.toggle('active');
+            });
+        }
+        
+        const menuItems = document.querySelectorAll('.menu-secundar a.has-submenu');
+        
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('submenu-open');
+                
+                let nextElement = this.nextElementSibling;
+                const submenuItems = [];
+                
+                while (nextElement && nextElement.classList.contains('submenu-item')) {
+                    submenuItems.push(nextElement);
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                submenuItems.forEach(function(submenuItem, index) {
+                    if (submenuItem.classList.contains('show')) {
+                        submenuItem.classList.remove('show');
+                    } else {
+                        setTimeout(function() {
+                            submenuItem.classList.add('show');
+                        }, index * 100);
+                    }
+                });
+            });
+        });
+        
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 700) {
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (menuSecundar) menuSecundar.classList.remove('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
