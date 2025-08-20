@@ -51,7 +51,7 @@
 |---|---|
 |Artificial Intelligence| |
 |Compiler Design| |
-|Robotics Fundamentals|[EV Charger] (https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
+|Robotics Fundamentals|[EV Charger](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
 |Signal Processing| |
 |Advanced Database Systems| |
 |Operating Systems II| |
