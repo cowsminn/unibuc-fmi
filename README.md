@@ -8,7 +8,7 @@
 |Algebra and Geometry| |
 |Calculus I| |
 |Physics| |
-|Computer Programming| |
+|Computer Programming|[Divide-et-Impera minimum](https://github.com/cowsminn/unibuc-fmi/tree/main/divide-et-impera-minim) |
 |Logical Design| |
 |Operating Systems I| |
 
@@ -21,7 +21,7 @@
 |Numerical Calculus| |
 |Computer-Aided Graphics| |
 |Calculus II| |
-|Computer Programming II| |
+|Computer Programming II| [Minimum Operations](https://github.com/cowsminn/unibuc-fmi/tree/main/progdinamica-nrminoperatii)<br>[Egyptian Fractions](https://github.com/cowsminn/unibuc-fmi/tree/main/fractii-egiptene-greedy)|
 
 ### Year 2 - Semester 1
 
@@ -31,7 +31,7 @@
 |Computer Networks| |
 |Object-Oriented Programming |[Bomberman]() |
 |Analog Electronics| |
-|Data Structures and Algorithms| |
+|Data Structures and Algorithms|[HashTable DifSim](https://github.com/cowsminn/unibuc-fmi/tree/main/hashtable_difsim)<br> [Dynamic Vector](https://github.com/cowsminn/unibuc-fmi/tree/main/grafuri_cicluri)<br> [SubVector](https://github.com/cowsminn/unibuc-fmi/tree/main/dynamicvectorSD)<br>[MergeSort DifSim](https://github.com/cowsminn/unibuc-fmi/tree/main/diferenta_simetrica_mergesort)<br>[Multisets DifSim](https://github.com/cowsminn/unibuc-fmi/tree/main/diferenta_simetrica_multiseturi)|
 |Systems Theory |
 
 ### Year 2 - Semester 2
@@ -42,7 +42,7 @@
 |Digital Electronics| |
 |Software Development Methods| |
 |Network Protocols| |
-|Web Development| |
+|Web Development| [ElectoDelicii WebSite](https://github.com/cowsminn/unibuc-fmi/tree/main/WEB)|
 |Probabilities and Statistics| |
 
 ### Year 3 - Semester 1
@@ -51,7 +51,7 @@
 |---|---|
 |Artificial Intelligence| |
 |Compiler Design| |
-|Robotics Fundamentals| |
+|Robotics Fundamentals|[EV Charger] (https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
 |Signal Processing| |
 |Advanced Database Systems| |
 |Operating Systems II| |
