@@ -1,0 +1,11 @@
+luam un cuvant si dam pe simplu/etc
+luam cuvantu din metadata
+
+
+Normalizare - vector care se imparte la norma vectorului v / ||v||
+
+Standardizare - feature i, v = (v - medie(v)) / std(v)     -> medie 0 deviatie 1
+
+feature.Etaj, feature.m^2 (casa pret)
+
+kmeans cluseter 0, 1, 2, 3, ... , k

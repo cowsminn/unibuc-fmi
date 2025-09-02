@@ -19,7 +19,7 @@
 |Computer System Architecture|
 |Basics of Electrotechnics| |
 |Numerical Calculus| |
-|Computer-Aided Graphics| |
+|Computer-Aided Graphics|[Ikea_Rigga](https://github.com/cowsminn/Rigga_3D_Model) |
 |Calculus II| |
 |Computer Programming II| [Minimum Operations](https://github.com/cowsminn/unibuc-fmi/tree/main/progdinamica-nrminoperatii)<br>[Egyptian Fractions](https://github.com/cowsminn/unibuc-fmi/tree/main/fractii-egiptene-greedy)|
 
@@ -27,7 +27,7 @@
 
 |Course|Projects and Others|
 |---|---|
-|Databases| |
+|Databases|[ElectroDelicii](https://github.com/cowsminn/ElectroDelicii_DataBase)|
 |Computer Networks| |
 |Object-Oriented Programming |[Bomberman]() |
 |Analog Electronics| |
@@ -49,20 +49,20 @@
 
 |Course|Projects and Others|
 |---|---|
-|Artificial Intelligence| |
-|Compiler Design| |
-|Robotics Fundamentals|[EV Charger](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
-|Signal Processing| |
-|Advanced Database Systems| |
-|Operating Systems II| |
+|Artificial Intelligence|[AsciiArt](https://github.com/cowsminn/AsciiArtUsingGA) |
+|Compiler Design|[Homeworks](https://github.com/cowsminn/unibuc-fmi/tree/main/compilers) |
+|Robotics Fundamentals|[RacingBrickGame](https://github.com/cowsminn/RacingBrickGame)<br>[EV Charger](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
+|Signal Processing| [Homeworks](https://github.com/cowsminn/unibuc-fmi/tree/main/signal_processing)|
+|Advanced Database Systems|[Project](https://github.com/cowsminn/unibuc-fmi/tree/main/advanced_db) |
+|Operating Systems II|[Homewrks](https://github.com/cowsminn/unibuc-fmi/tree/main/os2)|
 
 ### Year 3 - Semester 2
 
 |Course|Projects and Others|
 |---|---|
-|Machine Learning|
-|Object-Oriented Programing| |
-|Parallel Systems Architecture| |
-|Logic and Functional Programming| |
-|Web Application Development| 
+|Machine Learning|[Labs](https://github.com/cowsminn/unibuc-fmi/tree/main/ml)|
+|Object-Oriented Programing|[Homeworks + Project](https://github.com/cowsminn/unibuc-fmi/tree/main/oop2) |
+|Parallel Systems Architecture|[Homeworks + exam](https://github.com/cowsminn/unibuc-fmi/tree/main/parallel_systems) |
+|Logic and Functional Programming|[Homeworks + exam](https://github.com/cowsminn/unibuc-fmi/tree/main/functional_programming) |
+|Web Application Development[Exam + exam models](https://github.com/cowsminn/unibuc-fmi/tree/main/web_app)| 
 |Microprocessor Systems| |

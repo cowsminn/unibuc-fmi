@@ -1,0 +1,70 @@
+nume_actiune,timestamp
+USER_LOGIN_SUCCESS - User logged in: cosmin, 2025-05-29 00:58:39
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-29 00:58:46
+ITEM_READ - Read item by ID: 1, 2025-05-29 00:58:46
+ITEM_READ - Read item by ID: 3, 2025-05-29 00:58:46
+ITEM_READ - Read item by ID: 2, 2025-05-29 00:58:46
+BID_LIST_BY_USER - Retrieved bids for user: 4, 2025-05-29 00:58:50
+ITEM_SEARCH_BY_SELLER - Search items by seller ID: 4, 2025-05-29 00:58:59
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-29 00:59:02
+ITEM_READ - Read item by ID: 1, 2025-05-29 00:59:02
+ITEM_READ - Read item by ID: 3, 2025-05-29 00:59:02
+ITEM_READ - Read item by ID: 2, 2025-05-29 00:59:02
+BID_PLACE - Bid placed: 210 on auction: 2 by user: 4, 2025-05-29 00:59:10
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-29 00:59:15
+ITEM_READ - Read item by ID: 1, 2025-05-29 00:59:15
+ITEM_READ - Read item by ID: 3, 2025-05-29 00:59:15
+ITEM_READ - Read item by ID: 2, 2025-05-29 00:59:15
+USER_LOGIN_SUCCESS - User logged in: , 2025-05-29 23:14:41
+ITEM_ADD - Item added: Test by seller ID: 5, 2025-05-29 23:14:54
+AUCTION_SEARCH - Search auction by item ID: 4, 2025-05-29 23:14:58
+AUCTION_CREATE_FAILED - End time in past for item: 4, 2025-05-29 23:14:58
+ITEM_ADD - Item added: Test by seller ID: 5, 2025-05-29 23:15:16
+AUCTION_SEARCH - Search auction by item ID: 5, 2025-05-29 23:15:17
+AUCTION_CREATE - Auction created for item: Test (ID: 5), 2025-05-29 23:15:17
+ITEM_ADD - Item added:  by seller ID: 5, 2025-05-29 23:15:31
+AUCTION_SEARCH - Search auction by item ID: 6, 2025-05-29 23:15:34
+AUCTION_CREATE - Auction created for item:  (ID: 6), 2025-05-29 23:15:34
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-30 11:58:14
+ITEM_READ - Read item by ID: 5, 2025-05-30 11:58:14
+ITEM_READ - Read item by ID: 6, 2025-05-30 11:58:14
+ITEM_READ - Read item by ID: 1, 2025-05-30 11:58:14
+ITEM_READ - Read item by ID: 3, 2025-05-30 11:58:14
+ITEM_READ - Read item by ID: 2, 2025-05-30 11:58:14
+USER_LOGIN_SUCCESS - User logged in: , 2025-05-30 12:27:59
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-30 12:28:04
+ITEM_READ - Read item by ID: 5, 2025-05-30 12:28:04
+ITEM_READ - Read item by ID: 6, 2025-05-30 12:28:04
+ITEM_READ - Read item by ID: 1, 2025-05-30 12:28:04
+ITEM_READ - Read item by ID: 3, 2025-05-30 12:28:04
+ITEM_READ - Read item by ID: 2, 2025-05-30 12:28:04
+ITEM_ADD - Item added: Test by seller ID: 5, 2025-05-30 12:28:15
+AUCTION_SEARCH - Search auction by item ID: 7, 2025-05-30 12:28:18
+AUCTION_CREATE - Auction created for item: Test (ID: 7), 2025-05-30 12:28:18
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 5, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 6, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 1, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 3, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 2, 2025-05-30 12:28:24
+ITEM_READ - Read item by ID: 7, 2025-05-30 12:28:24
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 5, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 6, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 1, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 3, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 2, 2025-05-30 12:29:58
+ITEM_READ - Read item by ID: 7, 2025-05-30 12:29:58
+BID_PLACE - Bid placed: 2000 on auction: 2 by user: 5, 2025-05-30 12:30:05
+USER_LOGIN_SUCCESS - User logged in: , 2025-05-30 12:47:54
+ITEM_ADD - Item added: test1 by seller ID: 5, 2025-05-30 12:48:09
+AUCTION_SEARCH - Search auction by item ID: 8, 2025-05-30 12:48:11
+AUCTION_CREATE - Auction created for item: test1 (ID: 8), 2025-05-30 12:48:11
+AUCTION_LIST_ACTIVE - Retrieved active auctions, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 5, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 8, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 6, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 1, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 3, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 2, 2025-05-30 12:48:13
+ITEM_READ - Read item by ID: 7, 2025-05-30 12:48:13
