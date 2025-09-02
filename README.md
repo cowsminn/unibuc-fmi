@@ -54,7 +54,7 @@
 |Robotics Fundamentals|[RacingBrickGame](https://github.com/cowsminn/RacingBrickGame)<br>[EV Charger](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema1)<br> [TypeRacer Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema2)<br>[Quick Time Game](https://github.com/cowsminn/unibuc-fmi/tree/main/robotica-tema3) |
 |Signal Processing| [Homeworks](https://github.com/cowsminn/unibuc-fmi/tree/main/signal_processing)|
 |Advanced Database Systems|[Project](https://github.com/cowsminn/unibuc-fmi/tree/main/advanced_db) |
-|Operating Systems II|[Homewrks](https://github.com/cowsminn/unibuc-fmi/tree/main/os2)|
+|Operating Systems II|[Homeworks](https://github.com/cowsminn/unibuc-fmi/tree/main/os2)|
 
 ### Year 3 - Semester 2
 
