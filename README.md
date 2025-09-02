@@ -64,5 +64,5 @@
 |Object-Oriented Programing|[Homeworks + Project](https://github.com/cowsminn/unibuc-fmi/tree/main/oop2) |
 |Parallel Systems Architecture|[Homeworks + exam](https://github.com/cowsminn/unibuc-fmi/tree/main/parallel_systems) |
 |Logic and Functional Programming|[Homeworks + exam](https://github.com/cowsminn/unibuc-fmi/tree/main/functional_programming) |
-|Web Application Development[Exam + exam models](https://github.com/cowsminn/unibuc-fmi/tree/main/web_app)| 
+|Web Application Development|[Exam + exam models](https://github.com/cowsminn/unibuc-fmi/tree/main/web_app)| 
 |Microprocessor Systems| |
