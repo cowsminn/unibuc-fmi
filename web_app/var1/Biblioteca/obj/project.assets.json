@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/cowsmin/Documents/examene/Paw/var1/Biblioteca/Biblioteca.csproj",
+      "projectUniqueName": "/home/cowsmin/Documents/unibuc-fmi-1/web_app/var1/Biblioteca/Biblioteca.csproj",
       "projectName": "Biblioteca",
-      "projectPath": "/home/cowsmin/Documents/examene/Paw/var1/Biblioteca/Biblioteca.csproj",
+      "projectPath": "/home/cowsmin/Documents/unibuc-fmi-1/web_app/var1/Biblioteca/Biblioteca.csproj",
       "packagesPath": "/home/cowsmin/.nuget/packages/",
-      "outputPath": "/home/cowsmin/Documents/examene/Paw/var1/Biblioteca/obj/",
+      "outputPath": "/home/cowsmin/Documents/unibuc-fmi-1/web_app/var1/Biblioteca/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/cowsmin/.nuget/NuGet/NuGet.Config"
