@@ -1,0 +1,33 @@
+DROP TABLE IF EXISTS CommentLikes;
+DROP TABLE IF EXISTS Comments;
+
+CREATE TABLE Comments (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Content TEXT,
+    CreatedAt DATETIME NOT NULL,
+    IsApproved TINYINT(1) NOT NULL DEFAULT 0,
+    Likes INT NOT NULL DEFAULT 0,
+    PhotoId INT NOT NULL,
+    UserId INT NOT NULL
+);
+
+CREATE TABLE CommentLikes (
+    CommentId INT NOT NULL,
+    UserId INT NOT NULL,
+    CreatedAt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    PRIMARY KEY (CommentId, UserId),
+    CONSTRAINT FK_CommentLikes_Comments FOREIGN KEY (CommentId) REFERENCES Comments(Id) ON DELETE CASCADE,
+    CONSTRAINT FK_CommentLikes_Users FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
+);
+
+ALTER TABLE Photos 
+ADD COLUMN Latitude DOUBLE NULL,
+ADD COLUMN Longitude DOUBLE NULL,
+ADD COLUMN LocationName VARCHAR(255) NULL,
+ADD COLUMN City VARCHAR(100) NULL,
+ADD COLUMN Country VARCHAR(100) NULL;
+
+CREATE INDEX IX_Photos_Location ON Photos (Latitude, Longitude);
+CREATE INDEX IX_Photos_City ON Photos (City);
+CREATE INDEX IX_Photos_Country ON Photos (Country);
+

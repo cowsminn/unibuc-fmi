@@ -1,0 +1,345 @@
+@page
+@model MapSearchModel
+@{
+    ViewData["Title"] = "Căutare pe hartă";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="fas fa-map text-primary"></i>
+        Căutare pe hartă
+    </h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <!-- Search Form -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-search"></i> Criterii de căutare</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.Latitude" class="form-label"></label>
+                        <input asp-for="SearchInput.Latitude" class="form-control" step="0.000001" readonly />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.Longitude" class="form-label"></label>
+                        <input asp-for="SearchInput.Longitude" class="form-control" step="0.000001" readonly />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.Radius" class="form-label"></label>
+                        <input asp-for="SearchInput.Radius" class="form-control" type="number" min="1" max="1000" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.City" class="form-label"></label>
+                        <input asp-for="SearchInput.City" class="form-control" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.Country" class="form-label"></label>
+                        <input asp-for="SearchInput.Country" class="form-control" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="SearchInput.Category" class="form-label"></label>
+                        <select asp-for="SearchInput.Category" class="form-control">
+                            <option value="">Toate categoriile</option>
+                            <option value="0">🌿 Natură</option>
+                            <option value="1">🏢 Clădiri</option>
+                            <option value="2">🐾 Animale</option>
+                            <option value="3">👤 Portrete</option>
+                            <option value="4">🎨 Abstract</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="button" onclick="getCurrentLocation()" class="btn btn-outline-primary">
+                            <i class="fas fa-location-arrow"></i> Locația mea
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Caută
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        @if (Model.HasSearched)
+        {
+            <div class="card mt-3">
+                <div class="card-body text-center">
+                    <h5>Rezultate găsite</h5>
+                    <h2 class="text-primary">@Model.Photos.Count</h2>
+                    <small class="text-muted">poze</small>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-8">
+        <!-- Map -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-map-marked-alt"></i> Hartă interactivă</h5>
+            </div>
+            <div class="card-body p-0">
+                <div id="map" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+
+        <!-- Photo Results -->
+        @if (Model.Photos.Any())
+        {
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5><i class="fas fa-images"></i> Poze găsite</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <div class="col-md-4 mb-3">
+                                <div class="card photo-card" onclick="goToPhoto(@photo.Id)">
+                                    <img src="~/uploads/@photo.FileName" class="card-img-top" alt="@photo.Title" style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">@photo.Title</h6>
+                                        <p class="card-text small">
+                                            <i class="fas fa-user"></i> @photo.User.Name<br>
+                                            <i class="fas fa-heart text-danger"></i> @photo.Likes
+                                            <i class="fas fa-eye text-info ms-2"></i> @photo.Views
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        let searchCircle;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            loadPhotos();
+        });
+
+        function initMap() {
+            // Initialize map centered on Romania with world copy jump disabled
+            map = L.map('map', {
+                worldCopyJump: false,
+                maxBoundsViscosity: 1.0
+            }).setView([45.9432, 24.9668], 6);
+            
+            // Set max bounds to prevent infinite scrolling
+            const southWest = L.latLng(-90, -180);
+            const northEast = L.latLng(90, 180);
+            const bounds = L.latLngBounds(southWest, northEast);
+            map.setMaxBounds(bounds);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                noWrap: true
+            }).addTo(map);
+
+            // Add click event to set search coordinates
+            map.on('click', function(e) {
+                updateSearchCircle(e.latlng.lat, e.latlng.lng);
+                document.getElementById('SearchInput_Latitude').value = e.latlng.lat;
+                document.getElementById('SearchInput_Longitude').value = e.latlng.lng;
+            });
+        }
+
+        function loadPhotos() {
+            const lat = document.getElementById('SearchInput_Latitude').value;
+            const lng = document.getElementById('SearchInput_Longitude').value;
+            const radius = document.getElementById('SearchInput_Radius').value;
+            const city = document.getElementById('SearchInput_City').value;
+            const country = document.getElementById('SearchInput_Country').value;
+            const category = document.getElementById('SearchInput_Category').value;
+
+            let url = '/MapSearch?handler=PhotosJson';
+            const params = new URLSearchParams();
+            
+            if (lat) params.append('lat', lat);
+            if (lng) params.append('lng', lng);
+            if (radius) params.append('radius', radius);
+            if (city) params.append('city', city);
+            if (country) params.append('country', country);
+            if (category) params.append('category', category);
+            
+            if (params.toString()) {
+                url += '&' + params.toString();
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(photos => {
+                    // Clear existing markers
+                    markers.forEach(marker => map.removeLayer(marker));
+                    markers = [];
+
+                    // Add new markers
+                    photos.forEach(photo => {
+                        if (photo.latitude && photo.longitude) {
+                            const marker = L.marker([photo.latitude, photo.longitude])
+                                .bindPopup(`
+                                    <div class="photo-popup">
+                                        <img src="/uploads/${photo.fileName}" alt="${photo.title}">
+                                        <div class="popup-content">
+                                            <h6>${photo.title}</h6>
+                                            <p class="author">📷 ${photo.userName}</p>
+                                            <p class="stats">❤️ ${photo.likes} 👁️ ${photo.views}</p>
+                                            <button onclick="goToPhoto(${photo.id})" class="btn btn-primary btn-sm">Vezi</button>
+                                        </div>
+                                    </div>
+                                `)
+                                .addTo(map);
+                            markers.push(marker);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error loading photos:', error));
+        }
+
+        function updateSearchCircle(lat, lng) {
+            if (searchCircle) {
+                map.removeLayer(searchCircle);
+            }
+            
+            const radius = parseInt(document.getElementById('SearchInput_Radius').value) * 1000; // Convert km to meters
+            searchCircle = L.circle([lat, lng], {
+                radius: radius,
+                color: '#007bff',
+                fillColor: '#007bff',
+                fillOpacity: 0.1
+            }).addTo(map);
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    document.getElementById('SearchInput_Latitude').value = lat;
+                    document.getElementById('SearchInput_Longitude').value = lng;
+                    
+                    map.setView([lat, lng], 12);
+                    updateSearchCircle(lat, lng);
+                }, function(error) {
+                    alert('Nu s-a putut determina locația: ' + error.message);
+                });
+            } else {
+                alert('Browserul nu suportă geolocația.');
+            }
+        }
+
+        function goToPhoto(photoId) {
+            window.location.href = `/Photo/${photoId}`;
+        }
+
+        // Reload photos when form is submitted
+        document.addEventListener('submit', function(e) {
+            setTimeout(loadPhotos, 100);
+        });
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        .photo-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Enhanced popup styling */
+        .leaflet-popup-content {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 200px !important;
+        }
+
+        .photo-popup {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .photo-popup img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .popup-content {
+            padding: 12px;
+            background: white;
+        }
+
+        .popup-content h6 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        .popup-content .author {
+            margin: 0 0 6px 0;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .popup-content .stats {
+            margin: 0 0 10px 0;
+            font-size: 12px;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .popup-content .btn {
+            width: 100%;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Leaflet popup arrow styling */
+        .leaflet-popup-tip {
+            background: white !important;
+            border: none !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: transparent !important;
+            padding: 0 !important;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        }
+    </style>
+}

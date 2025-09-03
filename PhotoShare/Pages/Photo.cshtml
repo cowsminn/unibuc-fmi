@@ -1,0 +1,659 @@
+@page "{id:int}"
+@model PhotoDetailsModel
+@using PhotoShare.Extensions
+@{
+    ViewData["Title"] = Model.Photo?.Title ?? "Poză";
+}
+
+@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle"></i> @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model.Photo == null)
+{
+    <div class="alert alert-danger text-center">
+        <h4>Poza nu a fost găsită!</h4>
+        <a asp-page="/Gallery" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Înapoi la galerie
+        </a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <img src="~/uploads/@Model.Photo.FileName" class="card-img-top" alt="@Model.Photo.Title" 
+                     style="max-height: 600px; object-fit: contain; background: #f8f9fa;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h3 class="card-title">@Model.Photo.Title</h3>
+                            <span class="badge bg-primary fs-6">
+                                @GetCategoryEmoji(Model.Photo.Category) @GetCategoryName(Model.Photo.Category)
+                            </span>
+                        </div>
+                        <div class="text-end">
+                            @if (HttpContext.Session.IsLoggedIn())
+                            {
+                                <button onclick="likePhoto(@Model.Photo.Id)" 
+                                        class="btn btn-outline-danger like-btn" 
+                                        id="likeBtn-@Model.Photo.Id"
+                                        data-photo-id="@Model.Photo.Id">
+                                    <i class="far fa-heart"></i> <span class="like-count">@Model.Photo.Likes</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-danger" disabled title="Trebuie să te autentifici pentru a aprecia">
+                                    <i class="far fa-heart"></i> @Model.Photo.Likes
+                                </button>
+                            }
+                            @if (HttpContext.Session.IsLoggedIn() && 
+                                (HttpContext.Session.GetCurrentUserId() == Model.Photo.UserId || 
+                                 HttpContext.Session.GetString("UserType") == "Moderator"))
+                            {
+                                <button onclick="deletePhoto(@Model.Photo.Id)" class="btn btn-outline-danger ms-2">
+                                    <i class="fas fa-trash"></i> Șterge
+                                    @if (HttpContext.Session.GetString("UserType") == "Moderator" && HttpContext.Session.GetCurrentUserId() != Model.Photo.UserId)
+                                    {
+                                        <small class="ms-1">(Admin)</small>
+                                    }
+                                </button>
+                            }
+                        </div>
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Photo.Description))
+                    {
+                        <p class="card-text">@Model.Photo.Description</p>
+                    }
+                    
+                    <div class="row text-muted small mb-3">
+                        <div class="col-md-6">
+                            <i class="fas fa-user"></i> Încărcat de: <strong>@Model.Photo.User.Name</strong>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="fas fa-calendar"></i> @Model.Photo.UploadedAt.ToString("dd MMMM yyyy, HH:mm")
+                        </div>
+                        <div class="col-md-6">
+                            <i class="fas fa-eye"></i> @Model.Photo.Views vizualizări
+                        </div>
+                        <div class="col-md-6">
+                            <i class="fas fa-file"></i> @((Model.Photo.FileSize / 1024.0 / 1024.0).ToString("F2")) MB
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Informații autor -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5><i class="fas fa-user"></i> Despre autor</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h6>@Model.Photo.User.Name</h6>
+                    @if (!string.IsNullOrEmpty(Model.Photo.User.Bio))
+                    {
+                        <p class="text-muted small">@Model.Photo.User.Bio</p>
+                    }
+                    <small class="text-muted">
+                        Membru din @Model.Photo.User.CreatedAt.ToString("MMMM yyyy")
+                    </small>
+                    <hr>
+                    <div class="row text-center">
+                        <div class="col">
+                            <strong>@Model.UserPhotosCount</strong><br>
+                            <small class="text-muted">Poze</small>
+                        </div>
+                        <div class="col">
+                            <strong>@Model.TotalLikes</strong><br>
+                            <small class="text-muted">Aprecieri</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comentarii -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>
+                        <i class="fas fa-comments"></i> 
+                        Comentarii (@Model.Photo.Comments.Where(c => c.IsApproved).Count())
+                        @if (Model.PendingComments.Any())
+                        {
+                            <span class="badge bg-warning ms-2">@Model.PendingComments.Count în așteptare</span>
+                        }
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (HttpContext.Session.IsLoggedIn())
+                    {
+                        <form method="post" asp-page-handler="AddComment" class="mb-3">
+                            <input type="hidden" name="photoId" value="@Model.Photo.Id" />
+                            <div class="input-group">
+                                <input type="text" name="content" class="form-control" 
+                                       placeholder="Scrie un comentariu..." required>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            @if (HttpContext.Session.GetCurrentUserId() != Model.Photo.UserId)
+                            {
+                                <small class="text-muted mt-1 d-block">
+                                    <i class="fas fa-info-circle"></i> Comentariul va fi vizibil după aprobarea creatorului pozei.
+                                </small>
+                            }
+                        </form>
+                    }
+
+                    @* Pending Comments Section (only for photo owner) *@
+                    @if (Model.PendingComments.Any() && HttpContext.Session.GetCurrentUserId() == Model.Photo.UserId)
+                    {
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-clock"></i> Comentarii în așteptarea aprobării:</h6>
+                            @foreach (var pendingComment in Model.PendingComments)
+                            {
+                                <div class="border-start border-warning ps-3 mb-2">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <strong>@pendingComment.User.Name</strong>
+                                            <small class="text-muted ms-2">@pendingComment.CreatedAt.ToString("dd MMM, HH:mm")</small>
+                                            <p class="mb-1 mt-1">@pendingComment.Content</p>
+                                        </div>
+                                        <div class="btn-group btn-group-sm">
+                                            <form method="post" asp-page-handler="ApproveComment" style="display: inline;">
+                                                <input type="hidden" name="commentId" value="@pendingComment.Id" />
+                                                <button type="submit" class="btn btn-success btn-sm" title="Aprobă">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                            <form method="post" asp-page-handler="RejectComment" style="display: inline;">
+                                                <input type="hidden" name="commentId" value="@pendingComment.Id" />
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Respinge"
+                                                        onclick="return confirm('Ești sigur că vrei să respingi acest comentariu?')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    
+                    @* Approved Comments *@
+                    @{
+                        var approvedComments = Model.Photo.Comments.Where(c => c.IsApproved).OrderByDescending(c => c.CreatedAt);
+                    }
+                    
+                    @if (approvedComments.Any())
+                    {
+                        @foreach (var comment in approvedComments)
+                        {
+                            <div class="mb-3 pb-2 border-bottom" id="comment-@comment.Id">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong>@comment.User.Name</strong>
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <small class="text-muted">
+                                                    @comment.CreatedAt.ToString("dd MMM, HH:mm")
+                                                </small>
+                                                @if (HttpContext.Session.IsLoggedIn() && 
+                                                     (HttpContext.Session.GetCurrentUserId() == comment.UserId || 
+                                                      HttpContext.Session.GetString("UserType") == "Moderator"))
+                                                {
+                                                    <button onclick="deleteComment(@comment.Id)" class="btn btn-sm btn-outline-danger" title="Șterge comentariu">
+                                                        <i class="fas fa-trash"></i>
+                                                        @if (HttpContext.Session.GetString("UserType") == "Moderator" && HttpContext.Session.GetCurrentUserId() != comment.UserId)
+                                                        {
+                                                            <small>(Admin)</small>
+                                                        }
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                        <p class="mb-2 mt-1">@comment.Content</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            @if (HttpContext.Session.IsLoggedIn())
+                                            {
+                                                <button onclick="likeComment(@comment.Id)" 
+                                                        class="btn btn-sm btn-outline-primary comment-like-btn" 
+                                                        id="commentLikeBtn-@comment.Id"
+                                                        data-comment-id="@comment.Id">
+                                                    <i class="far fa-thumbs-up"></i> <span class="comment-like-count">@comment.Likes</span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <small class="text-muted">
+                                                    <i class="fas fa-thumbs-up"></i> @comment.Likes aprecieri
+                                                </small>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">
+                                Nu există comentarii aprobate încă.
+                            </p>
+                            @if (HttpContext.Session.IsLoggedIn())
+                            {
+                                <small class="text-muted">Fii primul care comentează!</small>
+                            }
+                            else
+                            {
+                                <small class="text-muted">
+                                    <a asp-page="/Login" class="text-decoration-none">Autentifică-te</a> pentru a comenta.
+                                </small>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a asp-page="/Gallery" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Înapoi la galerie
+            </a>
+            @if (Model.PreviousPhoto != null)
+            {
+                <a asp-page="/Photo" asp-route-id="@Model.PreviousPhoto.Id" class="btn btn-outline-secondary ms-2">
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </a>
+            }
+            @if (Model.NextPhoto != null)
+            {
+                <a asp-page="/Photo" asp-route-id="@Model.NextPhoto.Id" class="btn btn-outline-secondary ms-2">
+                    Următor <i class="fas fa-chevron-right"></i>
+                </a>
+            }
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <style>
+        <text>
+            /* Like animations */
+            .like-btn {
+                transition: all 0.3s ease;
+            }
+            
+            .like-btn.liked {
+                animation: heartBeat 0.5s ease;
+            }
+            
+            .comment-like-btn {
+                transition: all 0.3s ease;
+            }
+            
+            .comment-like-btn.liked {
+                animation: thumbsUp 0.3s ease;
+            }
+            
+            @@keyframes heartBeat {
+                0% { transform: scale(1); }
+                25% { transform: scale(1.15); }
+                50% { transform: scale(1.05); }
+                75% { transform: scale(1.15); }
+                100% { transform: scale(1); }
+            }
+            
+            @@keyframes thumbsUp {
+                0% { transform: scale(1) rotate(0deg); }
+                50% { transform: scale(1.1) rotate(-5deg); }
+                100% { transform: scale(1) rotate(0deg); }
+            }
+            
+            @@keyframes slideInFromRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @@keyframes slideOutToRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        </text>
+    </style>
+    
+    <script>
+        // Toggle like photo - ENHANCED
+        async function likePhoto(photoId) {
+            const button = document.getElementById(`likeBtn-${photoId}`);
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se încarcă...';
+            button.disabled = true;
+
+            try {
+                const response = await fetch(`/api/photos/${photoId}/like`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Update like count
+                    const likeCount = button.querySelector('.like-count');
+                    if (likeCount) {
+                        likeCount.textContent = data.newLikesCount;
+                    }
+                    
+                    // Update button style based on like status
+                    if (data.isLiked) {
+                        // Liked state - solid red button with full heart
+                        button.className = 'btn btn-danger like-btn liked';
+                        button.innerHTML = `<i class="fas fa-heart"></i> <span class="like-count">${data.newLikesCount}</span>`;
+                    } else {
+                        // Not liked state - outline button with empty heart
+                        button.className = 'btn btn-outline-danger like-btn';
+                        button.innerHTML = `<i class="far fa-heart"></i> <span class="like-count">${data.newLikesCount}</span>`;
+                    }
+                    
+                    showNotification(data.message, 'success');
+                    
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        button.classList.remove('liked');
+                    }, 500);
+                } else {
+                    button.innerHTML = originalText;
+                    showNotification(data.message, 'error');
+                }
+            } catch (error) {
+                button.innerHTML = originalText;
+                console.error('Error:', error);
+                showNotification('Eroare la apreciere!', 'error');
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // Toggle like comment - ENHANCED
+        async function likeComment(commentId) {
+            const button = document.getElementById(`commentLikeBtn-${commentId}`);
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            button.disabled = true;
+
+            try {
+                const response = await fetch(`/api/photos/comments/${commentId}/like`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Update comment like count and button style
+                    if (data.isLiked) {
+                        button.className = 'btn btn-sm btn-primary comment-like-btn liked';
+                        button.innerHTML = `<i class="fas fa-thumbs-up"></i> <span class="comment-like-count">${data.newLikes}</span>`;
+                    } else {
+                        button.className = 'btn btn-sm btn-outline-primary comment-like-btn';
+                        button.innerHTML = `<i class="far fa-thumbs-up"></i> <span class="comment-like-count">${data.newLikes}</span>`;
+                    }
+                    
+                    showNotification(data.message, 'success');
+                    
+                    // Remove animation class
+                    setTimeout(() => {
+                        button.classList.remove('liked');
+                    }, 300);
+                } else {
+                    button.innerHTML = originalText;
+                    showNotification(data.message, 'error');
+                }
+            } catch (error) {
+                button.innerHTML = originalText;
+                console.error('Error:', error);
+                showNotification('Eroare la apreciere!', 'error');
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // Delete comment
+        async function deleteComment(commentId) {
+            if (!confirm('Ești sigur că vrei să ștergi acest comentariu?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/photos/comments/${commentId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Remove comment from DOM with animation
+                    const commentElement = document.getElementById(`comment-${commentId}`);
+                    if (commentElement) {
+                        commentElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        commentElement.style.opacity = '0';
+                        commentElement.style.transform = 'translateX(-100%)';
+                        setTimeout(() => {
+                            commentElement.remove();
+                            updateCommentsCount();
+                        }, 300);
+                    }
+                    showNotification(data.message, 'success');
+                } else {
+                    showNotification(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Eroare la ștergere!', 'error');
+            }
+        }
+
+        // Delete photo
+        async function deletePhoto(photoId) {
+            if (!confirm('Ești sigur că vrei să ștergi această poză? Acțiunea nu poate fi anulată!')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/photos/${photoId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showNotification('Poză ștearsă cu succes! Redirecționare...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/Gallery';
+                    }, 1500);
+                } else {
+                    showNotification(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Eroare la ștergere!', 'error');
+            }
+        }
+
+        // Check like status
+        async function checkLikeStatus(photoId) {
+            try {
+                const response = await fetch(`/api/photos/${photoId}/like-status`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const button = document.getElementById(`likeBtn-${photoId}`);
+                    if (button) {
+                        const likeCount = data.likes;
+                        
+                        if (data.isLiked) {
+                            button.className = 'btn btn-danger like-btn';
+                            button.innerHTML = `<i class="fas fa-heart"></i> <span class="like-count">${likeCount}</span>`;
+                        } else {
+                            button.className = 'btn btn-outline-danger like-btn';
+                            button.innerHTML = `<i class="far fa-heart"></i> <span class="like-count">${likeCount}</span>`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking like status:', error);
+            }
+        }
+
+        // Check comment like status
+        async function checkCommentLikeStatus(commentId) {
+            try {
+                const response = await fetch(`/api/photos/comments/${commentId}/like-status`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const button = document.getElementById(`commentLikeBtn-${commentId}`);
+                    if (button) {
+                        const likeCount = data.likes;
+                        
+                        if (data.isLiked) {
+                            button.className = 'btn btn-sm btn-primary comment-like-btn';
+                            button.innerHTML = `<i class="fas fa-thumbs-up"></i> <span class="comment-like-count">${likeCount}</span>`;
+                        } else {
+                            button.className = 'btn btn-sm btn-outline-primary comment-like-btn';
+                            button.innerHTML = `<i class="far fa-thumbs-up"></i> <span class="comment-like-count">${likeCount}</span>`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking comment like status:', error);
+            }
+        }
+
+        function updateCommentsCount() {
+            const commentsHeader = document.querySelector('.card-header h5');
+            if (commentsHeader) {
+                const currentCount = document.querySelectorAll('[id^="comment-"]').length;
+                commentsHeader.innerHTML = `<i class="fas fa-comments"></i> Comentarii (${currentCount})`;
+            }
+        }
+
+        function showNotification(message, type) {
+            // Remove existing notifications
+            document.querySelectorAll('.photo-notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed photo-notification`;
+            notification.style.cssText = `
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 300px;
+                max-width: 400px;
+                animation: slideInFromRight 0.3s ease-out;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <span class="flex-grow-1">${message}</span>
+                    <button type="button" class="btn-close ms-2" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutToRight 0.3s ease-in';
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Initialize like statuses on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Photo page loaded, checking like statuses...');
+            
+            // Check photo like status
+            const photoLikeButton = document.querySelector('[id^="likeBtn-"]');
+            if (photoLikeButton) {
+                const photoId = photoLikeButton.getAttribute('data-photo-id');
+                if (photoId) {
+                    checkLikeStatus(photoId);
+                }
+            }
+            
+            // Check comment like statuses
+            const commentLikeButtons = document.querySelectorAll('[id^="commentLikeBtn-"]');
+            commentLikeButtons.forEach(button => {
+                const commentId = button.getAttribute('data-comment-id');
+                if (commentId) {
+                    checkCommentLikeStatus(commentId);
+                }
+            });
+        });
+    </script>
+}
+
+@functions {
+    public string GetCategoryName(PhotoCategory category)
+    {
+        return category switch
+        {
+            PhotoCategory.Natura => "Natură",
+            PhotoCategory.Cladiri => "Clădiri", 
+            PhotoCategory.Animale => "Animale",
+            PhotoCategory.Portrete => "Portrete",
+            PhotoCategory.Abstract => "Abstract",
+            _ => "Necunoscut"
+        };
+    }
+
+    public string GetCategoryEmoji(PhotoCategory category)
+    {
+        return category switch
+        {
+            PhotoCategory.Natura => "🌿",
+            PhotoCategory.Cladiri => "🏢",
+            PhotoCategory.Animale => "🐾", 
+            PhotoCategory.Portrete => "👤",
+            PhotoCategory.Abstract => "🎨",
+            _ => "📷"
+        };
+    }
+}

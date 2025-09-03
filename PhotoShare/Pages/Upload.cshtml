@@ -1,0 +1,874 @@
+@page
+@model UploadModel
+@{
+    ViewData["Title"] = "Încarcă poză";
+}
+
+<div class="text-center mb-4">
+    <h2>
+        <i class="fas fa-cloud-upload-alt text-primary"></i>
+        Încarcă o poză nouă
+    </h2>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        @Model.ErrorMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i>
+        @Model.SuccessMessage
+    </div>
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label asp-for="Input.Title" class="form-label">
+                            <i class="fas fa-heading"></i> Titlu *
+                        </label>
+                        <input asp-for="Input.Title" class="form-control" placeholder="Introdu un titlu pentru poza ta..." />
+                        <span asp-validation-for="Input.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Description" class="form-label">
+                            <i class="fas fa-align-left"></i> Descriere
+                        </label>
+                        <textarea asp-for="Input.Description" class="form-control" rows="4" 
+                                 placeholder="Descrie poza ta..."></textarea>
+                        <span asp-validation-for="Input.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Category" class="form-label">
+                            <i class="fas fa-tags"></i> Categorie *
+                        </label>
+                        <select asp-for="Input.Category" class="form-select">
+                            <option value="">Selectează categoria...</option>
+                            <option value="0">🌿 Natură</option>
+                            <option value="1">🏢 Clădiri</option>
+                            <option value="2">🐾 Animale</option>
+                            <option value="3">👤 Portrete</option>
+                            <option value="4">🎨 Abstract</option>
+                        </select>
+                        <span asp-validation-for="Input.Category" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Photo" class="form-label">
+                            <i class="fas fa-image"></i> Imagine *
+                        </label>
+                        <input asp-for="Input.Photo" class="form-control" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" 
+                               onchange="handleImageUpload(this)" />
+                        <span asp-validation-for="Input.Photo" class="text-danger"></span>
+                        <div class="form-text">
+                            Formate acceptate: JPG, PNG, GIF, WebP. Mărime maximă: 10MB.
+                        </div>
+                        
+                        <!-- Image Editor Section -->
+                        <div id="imageEditor" style="display: none;" class="mt-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-edit"></i> Editează imaginea
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div id="cropperContainer" style="max-height: 400px; overflow: hidden;">
+                                                <img id="cropperImage" style="max-width: 100%;">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">Zoom</label>
+                                                <input type="range" id="zoomSlider" class="form-range" 
+                                                       min="0.1" max="3" step="0.1" value="1">
+                                                <small class="text-muted">Folosește slider-ul pentru zoom</small>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Rotire</label>
+                                                <div class="btn-group w-100" role="group">
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="rotateImage(-90)">
+                                                        <i class="fas fa-undo"></i> -90°
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="rotateImage(90)">
+                                                        <i class="fas fa-redo"></i> +90°
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Aspect Ratio</label>
+                                                <select id="aspectRatio" class="form-select" onchange="changeAspectRatio()">
+                                                    <option value="free">Liber</option>
+                                                    <option value="1">Pătrat (1:1)</option>
+                                                    <option value="1.33">Landscape (4:3)</option>
+                                                    <option value="1.78">Widescreen (16:9)</option>
+                                                    <option value="0.75">Portrait (3:4)</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="d-grid gap-2">
+                                                <button type="button" class="btn btn-success" onclick="applyCrop()">
+                                                    <i class="fas fa-check"></i> Aplică modificările
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onclick="resetCrop()">
+                                                    <i class="fas fa-undo"></i> Resetează
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="cancelEdit()">
+                                                    <i class="fas fa-times"></i> Anulează editarea
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Section -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                                Locația pozei (opțional)
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.LocationName" class="form-label">
+                                            <i class="fas fa-map-pin"></i> Numele locației
+                                        </label>
+                                        <input asp-for="Input.LocationName" class="form-control" 
+                                               placeholder="ex: Castelul Peleș, Sinaia" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.City" class="form-label">
+                                            <i class="fas fa-city"></i> Oraș
+                                        </label>
+                                        <input asp-for="Input.City" class="form-control" placeholder="ex: București" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.Country" class="form-label">
+                                            <i class="fas fa-flag"></i> Țară
+                                        </label>
+                                        <input asp-for="Input.Country" class="form-control" placeholder="ex: România" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.Latitude" class="form-label">
+                                            <i class="fas fa-globe"></i> Latitudine
+                                        </label>
+                                        <input asp-for="Input.Latitude" class="form-control" type="number" 
+                                               step="any" placeholder="ex: 44.4268" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.Longitude" class="form-label">
+                                            <i class="fas fa-globe"></i> Longitudine
+                                        </label>
+                                        <input asp-for="Input.Longitude" class="form-control" type="number" 
+                                               step="any" placeholder="ex: 26.1025" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button type="button" class="btn btn-outline-primary" onclick="getCurrentLocation()">
+                                    <i class="fas fa-crosshairs"></i> Folosește locația curentă
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" onclick="showMap()">
+                                    <i class="fas fa-map"></i> Alege pe hartă
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a asp-page="/Gallery" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Anulează
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-cloud-upload-alt"></i> Încarcă poza
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Map Modal - FIXED -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mapModalLabel">
+                    <i class="fas fa-map-marker-alt"></i> Alege locația pe hartă
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 
+                    Fă click pe hartă pentru a selecta locația dorită
+                </div>
+                <div id="map" style="height: 400px; width: 100%; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.375rem;">
+                    <div class="d-flex justify-content-center align-items-center h-100" id="mapLoader">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Se încarcă harta...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Se încarcă harta...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Anulează
+                </button>
+                <button type="button" class="btn btn-primary" id="confirmLocationBtn" onclick="confirmLocation()" disabled>
+                    <i class="fas fa-check"></i> Confirmă locația
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.js"></script>
+    <script>
+        let map = null;
+        let marker = null;
+        let selectedLat, selectedLng;
+        let mapModal = null;
+        let mapInitialized = false;
+        let mapContainer = null;
+
+        // Initialize modal when document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up modal...');
+            
+            // Get modal element and container
+            const modalElement = document.getElementById('mapModal');
+            mapContainer = document.getElementById('map');
+            
+            console.log('Modal element found:', !!modalElement);
+            console.log('Map container found:', !!mapContainer);
+            
+            if (!modalElement || !mapContainer) {
+                console.error('Modal or map container not found');
+                return;
+            }
+
+            // Initialize Bootstrap modal with simple configuration
+            mapModal = new bootstrap.Modal(modalElement, {
+                backdrop: true,
+                keyboard: true,
+                focus: true
+            });
+
+            // Set up modal event listeners
+            modalElement.addEventListener('shown.bs.modal', function() {
+                console.log('Modal fully shown, initializing map...');
+                // Use a shorter delay to prevent race conditions
+                setTimeout(() => {
+                    initializeMap();
+                }, 100);
+            });
+
+            modalElement.addEventListener('hidden.bs.modal', function() {
+                console.log('Modal hidden, cleaning up...');
+                cleanupMap();
+            });
+        });
+
+        // Image editing variables
+        let cropper = null;
+        let currentImageFile = null;
+        let originalImageData = null;
+        
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                currentImageFile = input.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    originalImageData = e.target.result;
+                    // Show image editor automatically when file is selected
+                    showImageEditor();
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function showImageEditor() {
+            if (!originalImageData) {
+                showNotification('Nu există imagine pentru editare!', 'error');
+                return;
+            }
+            
+            // Show image editor
+            document.getElementById('imageEditor').style.display = 'block';
+            
+            // Initialize cropper
+            initializeCropper();
+            
+            // Scroll to editor
+            document.getElementById('imageEditor').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function initializeCropper() {
+            const image = document.getElementById('cropperImage');
+            
+            // Destroy existing cropper if any
+            if (cropper) {
+                cropper.destroy();
+            }
+            
+            // Set image source
+            image.src = originalImageData;
+            
+            // Wait for image to load
+            image.onload = function() {
+                cropper = new Cropper(image, {
+                    aspectRatio: NaN, // Free aspect ratio initially
+                    viewMode: 1,
+                    dragMode: 'move',
+                    autoCropArea: 0.8,
+                    restore: false,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                    responsive: true,
+                    checkOrientation: false,
+                    modal: true,
+                    background: true,
+                    zoomable: true,
+                    zoomOnTouch: true,
+                    zoomOnWheel: true,
+                    wheelZoomRatio: 0.1,
+                    ready: function() {
+                        console.log('Cropper initialized successfully');
+                        setupZoomSlider();
+                    },
+                    crop: function(event) {
+                        // Update preview as user crops
+                        updateCropPreview();
+                    }
+                });
+            };
+        }
+        
+        function setupZoomSlider() {
+            const zoomSlider = document.getElementById('zoomSlider');
+            
+            zoomSlider.addEventListener('input', function() {
+                if (cropper) {
+                    cropper.zoomTo(parseFloat(this.value));
+                }
+            });
+            
+            // Update slider when zoom changes
+            if (cropper) {
+                cropper.ready(function() {
+                    const imageData = cropper.getImageData();
+                    zoomSlider.value = imageData.ratio;
+                });
+            }
+        }
+        
+        function rotateImage(degree) {
+            if (cropper) {
+                cropper.rotate(degree);
+            }
+        }
+        
+        function changeAspectRatio() {
+            const aspectRatio = document.getElementById('aspectRatio').value;
+            
+            if (cropper) {
+                if (aspectRatio === 'free') {
+                    cropper.setAspectRatio(NaN);
+                } else {
+                    cropper.setAspectRatio(parseFloat(aspectRatio));
+                }
+            }
+        }
+        
+        function updateCropPreview() {
+            if (!cropper) return;
+            
+            try {
+                const canvas = cropper.getCroppedCanvas({
+                    width: 300,
+                    height: 300,
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high'
+                });
+                
+                if (canvas) {
+                    document.getElementById('previewImg').src = canvas.toDataURL();
+                }
+            } catch (error) {
+                console.error('Error updating crop preview:', error);
+            }
+        }
+        
+        function applyCrop() {
+            if (!cropper) {
+                showNotification('Nu există imagine pentru editare!', 'error');
+                return;
+            }
+            
+            try {
+                const canvas = cropper.getCroppedCanvas({
+                    maxWidth: 2048,
+                    maxHeight: 2048,
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high'
+                });
+                
+                if (canvas) {
+                    // Convert canvas to blob
+                    canvas.toBlob(function(blob) {
+                        // Create new file from blob with original filename
+                        const originalName = currentImageFile.name;
+                        const extension = originalName.substring(originalName.lastIndexOf('.'));
+                        const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.'));
+                        const editedFileName = `${nameWithoutExt}_edited${extension}`;
+                        
+                        const editedFile = new File([blob], editedFileName, {
+                            type: currentImageFile.type || 'image/jpeg',
+                            lastModified: Date.now()
+                        });
+                        
+                        // Update file input with edited file
+                        updateFileInput(editedFile);
+                        
+                        // Update preview with edited image
+                        const newImageUrl = canvas.toDataURL();
+                        showImagePreview(newImageUrl);
+                        
+                        // Mark as edited for backend processing
+                        markImageAsEdited(true);
+                        
+                        // Hide editor
+                        document.getElementById('imageEditor').style.display = 'none';
+                        
+                        showNotification('Imaginea a fost editată cu succes! Aceasta va fi salvată la încărcare.', 'success');
+                        
+                    }, currentImageFile.type || 'image/jpeg', 0.9);
+                }
+            } catch (error) {
+                console.error('Error applying crop:', error);
+                showNotification('Eroare la aplicarea modificărilor!', 'error');
+            }
+        }
+        
+        function updateFileInput(newFile) {
+            const fileInput = document.querySelector('input[type="file"]');
+            
+            // Create a new FileList containing our edited file
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(newFile);
+            fileInput.files = dataTransfer.files;
+            
+            // Update current file reference
+            currentImageFile = newFile;
+            
+            // Trigger change event to update any validation
+            fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        
+        function markImageAsEdited(isEdited) {
+            // Add or remove hidden input to track if image was edited
+            let editedInput = document.getElementById('imageEditedFlag');
+            
+            if (isEdited) {
+                if (!editedInput) {
+                    editedInput = document.createElement('input');
+                    editedInput.type = 'hidden';
+                    editedInput.id = 'imageEditedFlag';
+                    editedInput.name = 'ImageWasEdited';
+                    editedInput.value = 'true';
+                    document.querySelector('form').appendChild(editedInput);
+                }
+                editedInput.value = 'true';
+            } else {
+                if (editedInput) {
+                    editedInput.value = 'false';
+                }
+            }
+        }
+        
+        function cancelEdit() {
+            // Hide editor
+            document.getElementById('imageEditor').style.display = 'none';
+            
+            // Destroy cropper
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+            
+            // Reset to original image
+            if (originalImageData) {
+                showImagePreview(originalImageData);
+                
+                // Reset file input to original file
+                if (currentImageFile) {
+                    // Reset functionality here
+                }
+            }
+        }
+        
+        // Initialize map and other scripts...
+        // ...existing map code...
+        
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                // Show loading state
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se obține locația...';
+                button.disabled = true;
+
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lng = position.coords.longitude.toFixed(6);
+                    
+                    document.getElementById('Input_Latitude').value = lat;
+                    document.getElementById('Input_Longitude').value = lng;
+                    
+                    // Try reverse geocoding
+                    reverseGeocode(lat, lng);
+                    
+                    // Show success message
+                    showNotification('Locația curentă a fost setată cu succes!', 'success');
+                    
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, function(error) {
+                    console.error('Geolocation error:', error);
+                    let message = 'Nu s-a putut obține locația. ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            message += 'Permisiunea a fost refuzată.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            message += 'Locația nu este disponibilă.';
+                            break;
+                        case error.TIMEOUT:
+                            message += 'Timeout la obținerea locației.';
+                            break;
+                    }
+                    showNotification(message, 'error');
+                    
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                });
+            } else {
+                showNotification('Geolocația nu este suportată de acest browser.', 'error');
+            }
+        }
+
+        function showMap() {
+            console.log('showMap called');
+            if (mapModal) {
+                console.log('Opening modal...');
+                mapModal.show();
+            } else {
+                console.error('Modal not initialized');
+                showNotification('Eroare la deschiderea hărții. Reîncărcați pagina.', 'error');
+            }
+        }
+
+        function initializeMap() {
+            try {
+                console.log('Starting map initialization...');
+                
+                // Clear any existing map first
+                if (map) {
+                    console.log('Removing existing map...');
+                    map.remove();
+                    map = null;
+                }
+
+                // Clear and reset the container
+                if (mapContainer) {
+                    mapContainer.innerHTML = '';
+                }
+                
+                // Reset variables
+                selectedLat = undefined;
+                selectedLng = undefined;
+                marker = null;
+                mapInitialized = false;
+                
+                // Reset confirm button
+                const confirmBtn = document.getElementById('confirmLocationBtn');
+                if (confirmBtn) {
+                    confirmBtn.disabled = true;
+                }
+
+                // Initialize map similar to MapSearch page
+                console.log('Creating new map instance...');
+                
+                // Create map with configuration similar to MapSearch
+                map = L.map('map', {
+                    zoomControl: true,
+                    scrollWheelZoom: true,
+                    doubleClickZoom: true,
+                    dragging: true,
+                    touchZoom: true
+                }).setView([45.9432, 24.9668], 6);
+
+                // Add tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 18
+                }).addTo(map);
+
+                // Add click handler
+                map.on('click', function(e) {
+                    console.log('Map clicked at:', e.latlng);
+                    onMapClick(e);
+                });
+
+                // Force size invalidation after creation
+                setTimeout(() => {
+                    if (map) {
+                        map.invalidateSize(true);
+                        console.log('Map initialized successfully');
+                        mapInitialized = true;
+                    }
+                }, 50);
+
+            } catch (error) {
+                console.error('Error in initializeMap:', error);
+                showNotification('Eroare la inițializarea hărții: ' + error.message, 'error');
+                
+                // Show error in map container
+                if (mapContainer) {
+                    mapContainer.innerHTML = `
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <div class="text-center text-danger">
+                                <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                                <p>Eroare la încărcarea hărții</p>
+                                <button class="btn btn-primary" onclick="initializeMap()">Încearcă din nou</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function onMapClick(e) {
+            try {
+                console.log('Processing map click...');
+                
+                // Remove existing marker
+                if (marker && map) {
+                    map.removeLayer(marker);
+                }
+
+                // Add new marker
+                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+
+                // Store coordinates
+                selectedLat = e.latlng.lat;
+                selectedLng = e.latlng.lng;
+
+                console.log('Selected coordinates:', selectedLat, selectedLng);
+
+                // Enable confirm button
+                const confirmBtn = document.getElementById('confirmLocationBtn');
+                if (confirmBtn) {
+                    confirmBtn.disabled = false;
+                }
+
+                // Try reverse geocoding
+                reverseGeocode(selectedLat, selectedLng);
+                
+            } catch (error) {
+                console.error('Error handling map click:', error);
+            }
+        }
+
+        function confirmLocation() {
+            console.log('Confirming location:', selectedLat, selectedLng);
+            if (selectedLat !== undefined && selectedLng !== undefined) {
+                document.getElementById('Input_Latitude').value = selectedLat.toFixed(6);
+                document.getElementById('Input_Longitude').value = selectedLng.toFixed(6);
+                
+                // Close modal
+                if (mapModal) {
+                    mapModal.hide();
+                }
+                
+                showNotification('Locația a fost setată cu succes!', 'success');
+            } else {
+                showNotification('Te rog selectează o locație pe hartă făcând click!', 'error');
+            }
+        }
+
+        function cleanupMap() {
+            console.log('Cleaning up map...');
+            
+            try {
+                if (map) {
+                    map.remove();
+                    map = null;
+                    mapInitialized = false;
+                    console.log('Map removed successfully');
+                }
+            } catch (error) {
+                console.error('Error removing map:', error);
+            }
+            
+            marker = null;
+            selectedLat = undefined;
+            selectedLng = undefined;
+            
+            // Reset confirm button
+            const confirmBtn = document.getElementById('confirmLocationBtn');
+            if (confirmBtn) {
+                confirmBtn.disabled = true;
+            }
+            
+            // Reset map container to loading state
+            if (mapContainer) {
+                mapContainer.innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100" id="mapLoader">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Se încarcă harta...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Se încarcă harta...</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function reverseGeocode(lat, lng) {
+            console.log('Starting reverse geocoding for:', lat, lng);
+            
+            // Show loading in confirm button
+            const confirmBtn = document.getElementById('confirmLocationBtn');
+            const originalText = confirmBtn.innerHTML;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se obțin detaliile...';
+            
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Geocoding result:', data);
+                    if (data.address) {
+                        if (data.address.city || data.address.town || data.address.village) {
+                            document.getElementById('Input_City').value = 
+                                data.address.city || data.address.town || data.address.village;
+                        }
+                        if (data.address.country) {
+                            document.getElementById('Input_Country').value = data.address.country;
+                        }
+                        if (data.display_name) {
+                            const locationParts = data.display_name.split(',').slice(0, 3);
+                            document.getElementById('Input_LocationName').value = locationParts.join(', ');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Geocoding failed:', error);
+                })
+                .finally(() => {
+                    // Reset confirm button
+                    confirmBtn.innerHTML = originalText;
+                });
+        }
+
+        function showNotification(message, type) {
+            // Remove existing notifications
+            document.querySelectorAll('.upload-notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed upload-notification`;
+            notification.style.cssText = `
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 300px;
+                max-width: 400px;
+                animation: slideInFromRight 0.3s ease-out;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <span class="flex-grow-1">${message}</span>
+                    <button type="button" class="btn-close ms-2" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutToRight 0.3s ease-in';
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Global CSS for animations
+        const style = document.createElement('style');
+        style.textContent = '@@keyframes slideInFromRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } } ' +
+            '@@keyframes slideOutToRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } } ' +
+            '#mapModal { z-index: 1060 !important; } ' +
+            '.modal-backdrop { z-index: 1055 !important; } ' +
+            '#mapModal .leaflet-container { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.375rem; position: relative; z-index: 1; } ' +
+            '#mapModal .modal-dialog { z-index: 1061 !important; } ' +
+            '#mapModal .modal-content { z-index: 1062 !important; position: relative; }';
+        document.head.appendChild(style);
+    </script>
+}

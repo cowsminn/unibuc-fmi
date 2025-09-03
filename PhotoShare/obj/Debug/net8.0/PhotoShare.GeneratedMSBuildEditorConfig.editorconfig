@@ -1,0 +1,87 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PhotoShare
+build_property.RootNamespace = PhotoShare
+build_property.ProjectDir = /home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/cowsmin/Documents/proiecte/Paw_test/PhotoShare
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Gallery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR2FsbGVyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/MapSearch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWFwU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/MyPhotos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTXlQaG90b3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTm90Rm91bmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Photo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGhvdG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Upload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBsb2FkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-t047y1r4oe

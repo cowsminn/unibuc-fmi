@@ -1,0 +1,88 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Acasă";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+        <i class="fas fa-camera text-primary"></i>
+        Bun venit la PhotoShare
+    </h1>
+    <p class="lead text-secondary">Platformă pentru partajarea și descoperirea fotografiilor frumoase</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4 text-center">
+            <i class="fas fa-fire text-warning"></i>
+            Poze populare
+        </h2>
+        
+        @if (Model.PopularPhotos.Any())
+        {
+            <div class="photo-grid">
+                @foreach (var photo in Model.PopularPhotos)
+                {
+                    <div class="card photo-card" onclick="goToPhoto(@photo.Id)">
+                        <img src="~/uploads/@photo.FileName" class="card-img-top" alt="@photo.Title">
+                        <div class="card-body">
+                            <h6 class="card-title text-white">@photo.Title</h6>
+                            <p class="card-text text-muted small">
+                                <i class="fas fa-user"></i> @photo.User.Name
+                                <span class="ms-2">
+                                    <i class="fas fa-heart text-danger"></i> @photo.Likes
+                                    <i class="fas fa-eye text-info ms-2"></i> @photo.Views
+                                </span>
+                            </p>
+                            <a asp-page="/Photo" asp-route-id="@photo.Id" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">
+                                <i class="fas fa-eye"></i> Vezi
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle"></i>
+                Nu există încă poze în galerie. 
+                @if (HttpContext.Session.IsLoggedIn())
+                {
+                    <a asp-page="/Upload" class="btn btn-primary ms-2">Încarcă prima poză!</a>
+                }
+                else
+                {
+                    <a asp-page="/Register" class="btn btn-primary ms-2">Înregistrează-te pentru a încărca poze!</a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .photo-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .photo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+</style>
+
+<script>
+    function goToPhoto(photoId) {
+        window.location.href = `/Photo/${photoId}`;
+    }
+</script>

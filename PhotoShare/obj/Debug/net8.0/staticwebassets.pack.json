@@ -1,0 +1,385 @@
+{
+  "Files": [
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/obj/Debug/net8.0/scopedcss/projectbundle/PhotoShare.bundle.scp.css",
+      "PackagePath": "staticwebassets/PhotoShare.bundle.scp.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/css/site.css",
+      "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/js/site.js",
+      "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/LICENSE",
+      "PackagePath": "staticwebassets/lib/bootstrap"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation/LICENSE.md",
+      "PackagePath": "staticwebassets/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery/dist/jquery.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery/dist/jquery.min.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/lib/jquery/dist/jquery.min.map",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/0d0bb20e-0ca7-4362-83e4-52f4eac8642b_Screenshot from 2025-01-06 17-03-03.png",
+      "PackagePath": "staticwebassets/uploads/0d0bb20e-0ca7-4362-83e4-52f4eac8642b_Screenshot from 2025-01-06 17-03-03.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/1ac2cd6a-2b3d-4881-b035-5a99eb6fb653_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/1ac2cd6a-2b3d-4881-b035-5a99eb6fb653_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/2681cad0-32dc-49af-addd-99b64a7d572f_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/2681cad0-32dc-49af-addd-99b64a7d572f_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/2af0e0c3-12f6-4c93-903a-5a3e299a4a3f_Screenshot from 2025-06-03 09-59-54.png",
+      "PackagePath": "staticwebassets/uploads/2af0e0c3-12f6-4c93-903a-5a3e299a4a3f_Screenshot from 2025-06-03 09-59-54.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/3ab208f4-5da1-4510-aee2-f44372fa879a_Screenshot from 2025-01-06 17-03-03.png",
+      "PackagePath": "staticwebassets/uploads/3ab208f4-5da1-4510-aee2-f44372fa879a_Screenshot from 2025-01-06 17-03-03.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/655f4022-9c56-41c9-b453-b7e0514aa721_Screenshot from 2025-01-28 20-50-46.png",
+      "PackagePath": "staticwebassets/uploads/655f4022-9c56-41c9-b453-b7e0514aa721_Screenshot from 2025-01-28 20-50-46.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/68c78207-2297-42b0-a465-bb7ae93117ec_Screenshot from 2025-01-06 11-09-50.png",
+      "PackagePath": "staticwebassets/uploads/68c78207-2297-42b0-a465-bb7ae93117ec_Screenshot from 2025-01-06 11-09-50.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/6c1c7b22-a2c7-49ec-b354-447d62f0ca5f_Screenshot from 2024-12-25 20-01-52.png",
+      "PackagePath": "staticwebassets/uploads/6c1c7b22-a2c7-49ec-b354-447d62f0ca5f_Screenshot from 2024-12-25 20-01-52.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/83125fa6-5e56-4c12-8a57-8158a43a0047_Screenshot from 2025-01-06 18-02-05.png",
+      "PackagePath": "staticwebassets/uploads/83125fa6-5e56-4c12-8a57-8158a43a0047_Screenshot from 2025-01-06 18-02-05.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/9d497142-f6c7-4a5f-a760-5f2d019208b8_Screenshot from 2025-01-29 21-52-37.png",
+      "PackagePath": "staticwebassets/uploads/9d497142-f6c7-4a5f-a760-5f2d019208b8_Screenshot from 2025-01-29 21-52-37.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/Screenshot from 2024-12-25 20-01-52_20250605_150057_f948f128.png",
+      "PackagePath": "staticwebassets/uploads/Screenshot from 2024-12-25 20-01-52_20250605_150057_f948f128.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/Screenshot from 2025-01-06 11-30-27_edited_20250604_134942_785fc219.png",
+      "PackagePath": "staticwebassets/uploads/Screenshot from 2025-01-06 11-30-27_edited_20250604_134942_785fc219.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/Screenshot from 2025-02-28 16-58-07_edited_20250604_135238_4290a4dd.png",
+      "PackagePath": "staticwebassets/uploads/Screenshot from 2025-02-28 16-58-07_edited_20250604_135238_4290a4dd.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/b149d8cf-6daf-4cd8-88ba-b116946979c2_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/b149d8cf-6daf-4cd8-88ba-b116946979c2_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/e750780f-3a87-4404-91d6-20dc8cea6e25_Screenshot from 2025-01-06 11-30-27.png",
+      "PackagePath": "staticwebassets/uploads/e750780f-3a87-4404-91d6-20dc8cea6e25_Screenshot from 2025-01-06 11-30-27.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/0d0bb20e-0ca7-4362-83e4-52f4eac8642b_Screenshot from 2025-01-06 17-03-03.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/0d0bb20e-0ca7-4362-83e4-52f4eac8642b_Screenshot from 2025-01-06 17-03-03.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/1ac2cd6a-2b3d-4881-b035-5a99eb6fb653_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/1ac2cd6a-2b3d-4881-b035-5a99eb6fb653_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/2681cad0-32dc-49af-addd-99b64a7d572f_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/2681cad0-32dc-49af-addd-99b64a7d572f_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/2af0e0c3-12f6-4c93-903a-5a3e299a4a3f_Screenshot from 2025-06-03 09-59-54.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/2af0e0c3-12f6-4c93-903a-5a3e299a4a3f_Screenshot from 2025-06-03 09-59-54.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/3ab208f4-5da1-4510-aee2-f44372fa879a_Screenshot from 2025-01-06 17-03-03.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/3ab208f4-5da1-4510-aee2-f44372fa879a_Screenshot from 2025-01-06 17-03-03.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/655f4022-9c56-41c9-b453-b7e0514aa721_Screenshot from 2025-01-28 20-50-46.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/655f4022-9c56-41c9-b453-b7e0514aa721_Screenshot from 2025-01-28 20-50-46.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/68c78207-2297-42b0-a465-bb7ae93117ec_Screenshot from 2025-01-06 11-09-50.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/68c78207-2297-42b0-a465-bb7ae93117ec_Screenshot from 2025-01-06 11-09-50.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/6c1c7b22-a2c7-49ec-b354-447d62f0ca5f_Screenshot from 2024-12-25 20-01-52.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/6c1c7b22-a2c7-49ec-b354-447d62f0ca5f_Screenshot from 2024-12-25 20-01-52.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/83125fa6-5e56-4c12-8a57-8158a43a0047_Screenshot from 2025-01-06 18-02-05.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/83125fa6-5e56-4c12-8a57-8158a43a0047_Screenshot from 2025-01-06 18-02-05.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/9d497142-f6c7-4a5f-a760-5f2d019208b8_Screenshot from 2025-01-29 21-52-37.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/9d497142-f6c7-4a5f-a760-5f2d019208b8_Screenshot from 2025-01-29 21-52-37.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/Screenshot from 2024-12-25 20-01-52_20250605_150057_f948f128.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/Screenshot from 2024-12-25 20-01-52_20250605_150057_f948f128.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/Screenshot from 2025-01-06 11-30-27_edited_20250604_134942_785fc219.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/Screenshot from 2025-01-06 11-30-27_edited_20250604_134942_785fc219.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/Screenshot from 2025-02-28 16-58-07_edited_20250604_135238_4290a4dd.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/Screenshot from 2025-02-28 16-58-07_edited_20250604_135238_4290a4dd.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/b149d8cf-6daf-4cd8-88ba-b116946979c2_Screenshot from 2025-01-06 16-06-17.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/b149d8cf-6daf-4cd8-88ba-b116946979c2_Screenshot from 2025-01-06 16-06-17.png"
+    },
+    {
+      "Id": "/home/cowsmin/Documents/proiecte/Paw_test/PhotoShare/wwwroot/uploads/thumbs/e750780f-3a87-4404-91d6-20dc8cea6e25_Screenshot from 2025-01-06 11-30-27.png",
+      "PackagePath": "staticwebassets/uploads/thumbs/e750780f-3a87-4404-91d6-20dc8cea6e25_Screenshot from 2025-01-06 11-30-27.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.PhotoShare.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.PhotoShare.props",
+      "PackagePath": "build\\PhotoShare.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.PhotoShare.props",
+      "PackagePath": "buildMultiTargeting\\PhotoShare.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.PhotoShare.props",
+      "PackagePath": "buildTransitive\\PhotoShare.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

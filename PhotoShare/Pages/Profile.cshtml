@@ -1,0 +1,247 @@
+@page "/Profile/{id:int?}"
+@model ProfileModel
+@using PhotoShare.Models
+@{
+    ViewData["Title"] = Model.IsOwnProfile ? "Profilul meu" : $"Profil - {Model.UserProfile.Name}";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <!-- Profile Card -->
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <div class="profile-avatar mb-3">
+                    <i class="fas fa-user-circle fa-5x text-primary"></i>
+                </div>
+                <h4 class="card-title">@Model.UserProfile.Name</h4>
+                <p class="text-muted">
+                    @if (Model.UserProfile.Type == UserType.Moderator)
+                    {
+                        <span class="badge bg-warning text-dark">
+                            <i class="fas fa-crown"></i> Moderator
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-primary">
+                            <i class="fas fa-user"></i> Membru
+                        </span>
+                    }
+                </p>
+                <small class="text-muted">
+                    <i class="fas fa-calendar"></i> 
+                    Membru din @Model.UserProfile.CreatedAt.ToString("MMMM yyyy")
+                </small>
+            </div>
+        </div>
+
+        <!-- Statistics Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar"></i> Statistici</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <h4 class="text-primary">@Model.UserPhotos.Count</h4>
+                        <small class="text-muted">Poze</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="text-danger">@Model.TotalLikes</h4>
+                        <small class="text-muted">Aprecieri</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="text-info">@Model.TotalViews</h4>
+                        <small class="text-muted">Vizualizări</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <h5 class="text-success">@Model.TotalComments</h5>
+                    <small class="text-muted">Comentarii primite</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bio Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Despre mine</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.IsOwnProfile)
+                {
+                    <form method="post" asp-page-handler="UpdateBio">
+                        <div class="mb-3">
+                            <textarea asp-for="Bio" class="form-control" rows="4" 
+                                      placeholder="Spune-ne ceva despre tine, pasiunile tale fotografice..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-save"></i> Salvează bio
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    @if (!string.IsNullOrEmpty(Model.UserProfile.Bio))
+                    {
+                        <p>@Model.UserProfile.Bio</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted fst-italic">Acest utilizator nu și-a completat încă bio-ul.</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <!-- Success/Error Messages -->
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> @Model.SuccessMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> @Model.ErrorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- Photos Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>
+                <i class="fas fa-images text-primary"></i>
+                @if (Model.IsOwnProfile)
+                {
+                    <text>Pozele mele</text>
+                }
+                else
+                {
+                    <text>Pozele lui @Model.UserProfile.Name</text>
+                }
+                <span class="badge bg-secondary">@Model.UserPhotos.Count</span>
+            </h3>
+            @if (Model.IsOwnProfile)
+            {
+                <a asp-page="/Upload" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Încarcă poză
+                </a>
+            }
+        </div>
+
+        @if (Model.UserPhotos.Any())
+        {
+            <div class="photo-grid">
+                @foreach (var photo in Model.UserPhotos)
+                {
+                    <div class="card photo-card" onclick="goToPhoto(@photo.Id)">
+                        <div class="position-relative">
+                            <img src="~/uploads/@photo.FileName" class="card-img-top" alt="@photo.Title" 
+                                 style="height: 250px; object-fit: cover;">
+                            <div class="position-absolute top-0 end-0 p-2">
+                                <span class="badge bg-primary">@GetCategoryEmoji(photo.Category)</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">@photo.Title</h6>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar"></i> @photo.UploadedAt.ToString("dd MMM yyyy")
+                                </small>
+                                <div>
+                                    <span class="badge bg-danger">
+                                        <i class="fas fa-heart"></i> @photo.Likes
+                                    </span>
+                                    <span class="badge bg-info">
+                                        <i class="fas fa-eye"></i> @photo.Views
+                                    </span>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(photo.Description))
+                            {
+                                <p class="card-text small text-muted">
+                                    @(photo.Description.Length > 100 ? photo.Description.Substring(0, 100) + "..." : photo.Description)
+                                </p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-camera fa-5x text-muted mb-4"></i>
+                @if (Model.IsOwnProfile)
+                {
+                    <h4 class="text-muted">Nu ai încărcat încă nicio poză</h4>
+                    <p class="text-muted">Începe să partajezi momentele tale speciale!</p>
+                    <a asp-page="/Upload" class="btn btn-primary btn-lg">
+                        <i class="fas fa-upload"></i> Încarcă prima poză
+                    </a>
+                }
+                else
+                {
+                    <h4 class="text-muted">@Model.UserProfile.Name nu a încărcat încă nicio poză</h4>
+                    <p class="text-muted">Revino mai târziu pentru a vedea fotografiile acestui utilizator.</p>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .photo-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .photo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .profile-avatar {
+        transition: transform 0.3s ease;
+    }
+    
+    .profile-avatar:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<script>
+    function goToPhoto(photoId) {
+        window.location.href = `/Photo/${photoId}`;
+    }
+</script>
+
+@functions {
+    public string GetCategoryEmoji(PhotoCategory category)
+    {
+        return category switch
+        {
+            PhotoCategory.Natura => "🌿",
+            PhotoCategory.Cladiri => "🏢",
+            PhotoCategory.Animale => "🐾",
+            PhotoCategory.Portrete => "👤",
+            PhotoCategory.Abstract => "🎨",
+            _ => "📷"
+        };
+    }
+}

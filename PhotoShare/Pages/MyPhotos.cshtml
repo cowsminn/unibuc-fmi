@@ -1,0 +1,267 @@
+@page
+@model MyPhotosModel
+@{
+    ViewData["Title"] = "Pozele mele";
+}
+
+@functions {
+    private string GetCategoryEmoji(PhotoCategory category)
+    {
+        return category switch
+        {
+            PhotoCategory.Natura => "🌿",
+            PhotoCategory.Cladiri => "🏢",
+            PhotoCategory.Animale => "🐾",
+            PhotoCategory.Portrete => "👤",
+            PhotoCategory.Abstract => "🎨",
+            _ => "📷"
+        };
+    }
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="fas fa-user-images text-primary"></i>
+        Pozele mele (@Model.Photos.Count())
+    </h2>
+    <a asp-page="/Upload" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Incarca poza noua
+    </a>
+</div>
+
+@if (Model.Photos.Any())
+{
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="text-primary">@Model.Photos.Count()</h4>
+                    <small class="text-muted">Poze totale</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="text-danger">@Model.TotalLikes</h4>
+                    <small class="text-muted">Aprecieri</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="text-info">@Model.TotalViews</h4>
+                    <small class="text-muted">Vizualizari</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="text-success">@Model.TotalComments</h4>
+                    <small class="text-muted">Comentarii</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-grid">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="card photo-card">
+                <div class="position-relative">
+                    <img src="~/uploads/@photo.FileName" class="card-img-top" alt="@photo.Title" 
+                         style="height: 250px; object-fit: cover;">
+                    <div class="position-absolute top-0 end-0 p-2">
+                        <span class="badge bg-primary">@GetCategoryEmoji(photo.Category)</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">@photo.Title</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar"></i> @photo.UploadedAt.ToString("dd MMM yyyy")
+                        </small>
+                        <div>
+                            <span class="badge bg-danger">
+                                <i class="fas fa-heart"></i> @photo.Likes
+                            </span>
+                            <span class="badge bg-info">
+                                <i class="fas fa-eye"></i> @photo.Views
+                            </span>
+                        </div>
+                    </div>
+                    <div class="btn-group w-100" role="group">
+                        <a asp-page="/Photo" asp-route-id="@photo.Id" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> Vezi
+                        </a>
+                        <button onclick="editPhoto(@photo.Id, '@photo.Title', '@photo.Description')" 
+                                class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Editeaza
+                        </button>
+                        <button onclick="deletePhoto(@photo.Id)" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Sterge
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fas fa-camera fa-5x text-muted mb-4"></i>
+        <h4 class="text-muted">Nu ai incarcat inca nicio poza</h4>
+        <p class="text-muted">Incepe sa partajezi momentele tale speciale!</p>
+        <a asp-page="/Upload" class="btn btn-primary btn-lg">
+            <i class="fas fa-upload"></i> Incarca prima poza
+        </a>
+    </div>
+}
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editeaza poza</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editForm" method="post" asp-page-handler="EditPhoto">
+                <div class="modal-body">
+                    <input type="hidden" id="editPhotoId" name="photoId" />
+                    <div class="mb-3">
+                        <label class="form-label">Titlu</label>
+                        <input type="text" id="editTitle" name="title" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descriere</label>
+                        <textarea id="editDescription" name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuleaza</button>
+                    <button type="submit" class="btn btn-primary">Salveaza modificarile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function editPhoto(id, title, description) {
+            document.getElementById('editPhotoId').value = id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editDescription').value = description || '';
+            
+            var modal = new bootstrap.Modal(document.getElementById('editModal'));
+            modal.show();
+        }
+
+        async function deletePhoto(photoId) {
+            if (!confirm('Esti sigur ca vrei sa stergi aceasta poza? Actiunea nu poate fi anulata!')) {
+                return;
+            }
+
+            try {
+                showLoading();
+                
+                const response = await fetch(`/api/photos/${photoId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showNotification('Poza stearsa cu succes! Reincarcarea paginii...', 'success');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    showNotification(data.message || 'Eroare la stergere!', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Eroare la stergere!', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        function showLoading() {
+            const loader = document.createElement('div');
+            loader.id = 'pageLoader';
+            loader.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center';
+            loader.style.cssText = 'background: rgba(0,0,0,0.5); z-index: 9999;';
+            loader.innerHTML = `
+                <div class="text-center text-white">
+                    <div class="spinner-border mb-3" role="status">
+                        <span class="visually-hidden">Se incarca...</span>
+                    </div>
+                    <p>Se proceseaza...</p>
+                </div>
+            `;
+            document.body.appendChild(loader);
+        }
+        
+        function hideLoading() {
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                loader.remove();
+            }
+        }
+        
+        function showNotification(message, type) {
+            // Remove existing notifications
+            document.querySelectorAll('.temp-notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed temp-notification`;
+            notification.style.cssText = `
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                min-width: 300px;
+                max-width: 400px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <span class="flex-grow-1">${message}</span>
+                    <button type="button" class="btn-close ms-2" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+    </script>
+    
+    <style>
+        /* Ensure modal appears above everything */
+        .modal {
+            z-index: 1055 !important;
+        }
+        
+        .modal-backdrop {
+            z-index: 1050 !important;
+        }
+        
+        /* Prevent body scroll when modal is open */
+        .modal-open {
+            overflow: hidden;
+        }
+    </style>
+}
