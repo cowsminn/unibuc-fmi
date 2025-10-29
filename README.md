@@ -66,3 +66,13 @@
 |Logic and Functional Programming|[Homeworks + exam](https://github.com/cowsminn/unibuc-fmi/tree/main/functional_programming) |
 |Web Application Development|[PhotoShare](https://github.com/cowsminn/unibuc-fmi/tree/main/PhotoShare)<br>[Exam + exam models](https://github.com/cowsminn/unibuc-fmi/tree/main/web_app)| 
 |Microprocessor Systems| |
+
+### Year 4 - Semester 1
+
+|Course|Projects and Others|
+|---|---|
+|RPA UiPath|[?]() |
+|Machine Learning in Cloud Computing|[?]() |
+|Databases, from NoSql to Vector DBs|[?]() |
+|Cryptography and Security| [?]()|
+|Programming Engineering|[?]() |
