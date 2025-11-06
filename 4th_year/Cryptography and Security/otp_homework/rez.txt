@@ -1,0 +1,13 @@
+Am descarcat o lista de cuvinte si am filtrat doar cuvintele cu 15 litere(fiecare cuvant criptat are 30 caractere hex => 15 bytes).
+Luam un plaintext si facem xor cu un cuvant criptat rezultand o cheie pe care o vom incerca cu toate cuvintele criptate.
+Daca toate cuvintele fac parte din lista de cuvinte descarcata inseamna ca am gasit solutia.
+
+Key: AF9F638930A110B172F5053ECB29EA
+Text clar 1: troubleshooters
+Text clar 2: technologically
+Text clar 3: transformations
+Text clar 4: synchronization
+Text clar 5: oversimplifying
+Text clar 6: omnidirectional
+Text clar 7: overemphasizing
+
