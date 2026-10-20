@@ -1,0 +1,38 @@
+ <!-- un owl(web ontology language) pentru a defini ontologia -->
+ <!-- http://example.org/ este un URI(uniform resource identifier) - identificator care poate fi folosit pentru a identifica o resursa, dar nu este neaparat accesibila pe internet -->
+<!-- url (uniform resource locator) - uri care indifca locatia exacta a unei resurse pe internet -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/rag_ontology#"
+     xml:base="http://example.org/rag_ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://example.org/rag_ontology"/>
+    
+    <!-- clase -->
+    <owl:Class rdf:about="#Ontology"/>
+    <owl:Class rdf:about="#SemanticValidation"/>
+    <owl:Class rdf:about="#LanguageModel"/>
+    <owl:Class rdf:about="#Hallucination"/>
+    
+    <!-- proprietatile care definesc relatiile dintre clase -->
+    <owl:ObjectProperty rdf:about="#utilizate_pentru">
+        <rdfs:domain rdf:resource="#Ontology"/>
+        <rdfs:range rdf:resource="#SemanticValidation"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#reduce">
+        <rdfs:domain rdf:resource="#SemanticValidation"/>
+        <rdfs:range rdf:resource="#Hallucination"/>
+    </owl:ObjectProperty>
+    
+    <!-- instante, exemple concrete ale claselor definite -->
+    <Ontology rdf:about="#ontologii"/>
+    <SemanticValidation rdf:about="#validare_semantica"/>
+    
+    <!-- facts care definesc relatiile dintre instante (instanta ontologii este utilizata pentru instanta validare_semantica) -->
+    <rdf:Description rdf:about="#ontologii">
+        <utilizate_pentru rdf:resource="#validare_semantica"/>
+    </rdf:Description>
+</rdf:RDF>

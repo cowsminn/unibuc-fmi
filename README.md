@@ -71,8 +71,15 @@
 
 |Course|Projects and Others|
 |---|---|
-|RPA UiPath|[?]() |
-|Machine Learning in Cloud Computing|[?]() |
-|Databases, from NoSql to Vector DBs|[?]() |
+|RPA UiPath|[Project](https://github.com/cowsminn/RPA_UiPath) |
+|Machine Learning in Cloud Computing|[Project](https://github.com/cowsminn/unibuc-fmi/tree/main/4th_year/Machine%Learning%in%Cloud%Computing) |
+|Databases, from NoSql to Vector DBs|[Project](https://github.com/cowsminn/schema-aware-text2sql) |
 |Cryptography and Security| [Homeworks](https://github.com/cowsminn/unibuc-fmi/tree/main/4th_year/Cryptography%20and%20Security)|
-|Programming Engineering|[Project](https://github.com/cowsminn/unibuc-fmi/tree/main/4th_year/Programming%20Engineering) |
+|Programming Engineering|[Project](https://github.com/cowsminn/unibuc-fmi/tree/main/4th_year/Programming%20Engineering)|
+
+### Year 4 - Semester 2
+
+|Course|Projects and Others|
+|---|---|
+|Secure Software Application Development|[Project](https://github.com/cowsminn/auth-security-lab) |
+|Software Systems Testing|[Project](https://github.com/cowsminn/unit-testing-python) |

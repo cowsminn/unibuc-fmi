@@ -1,0 +1,41 @@
+Kmeans
+
+- nu in productie
+- lasi algoritmu sa mearga pe toate datele
+- distanta euclidian intre centroizi
+- nu e foarte bun pe mult variabile
+ - centroid = cel mai avrage pentru acel cluster
+ - k menas plus nu modifica centrul
+ - elbow method, disperstaion ( contrarea punctelor din clustere) , rulare excesiva de kmeans cu mai multe clustere
+
+cel mai folosit este Xc Bossting (Gradient Booting)
+Decision tree:
+- e doar un if/else
+- greu pe multe feature uri ( pentru asta s a creat random forest)
+
+Random Forest:
+- paralel (memoria mai mica)
+
+Gradient Boosting:
+- optimizat
+- tree mic cu multe noduri lift nodes
+- minimizez functia de loss
+- copac din copac ca sa fie paralel
+- memorie minima, alegem path ul de care avem nevoie
+
+Fct de loss = realitate - rezultat
+
+train test split - date de antrenare si testare
+
+
+LAB 4
+
+- GPT sunt decoding, scaleaza la infint pirn masked multi-head attention
+- ce sunt tokenurile : 
+	- ca sa duce o propozitie in acel array, o ducem prin preprocesoare, tokenizare si encoding
+	- tokenizare cea mai simpla forma in care putem aduce o propozitie
+	- cls e inceput, sep si sfarsitul
+	- nr de tokenuri e nr cuvinte * 1.4
+- baza de date vectoriala, extragem bucati si le dam llm si avem intrebarea
+si contextu si llm va raspunde
+- ce face docker

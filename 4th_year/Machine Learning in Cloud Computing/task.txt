@@ -1,0 +1,11 @@
+RAG Agentic Fundamentat pe Ontologii (C6): Proiectarea unui cadru de agenți 
+autonomi bazat pe Azure Semantic Kernel/LangChain, care utilizează Ontologii ca 
+mecanism de Grounding și validare a faptelor extrase, îmbunătățind precizia și reducând 
+halucinațiile în RAG (Retrieval-Augmented Generation)
+
+Evaluarea proiectelor prezentate se va face astfel:
+1p - oficiu
+4p - complexitatea arhitecturii livrate 
+3p - complexitatea soluției de implementare a arhitecturii
+2p - Modul de prezentare, sursele de documentare, claritatea prezentării
+ 
